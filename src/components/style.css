@@ -28,6 +28,15 @@
     box-shadow: inset 0 0 0 5px #8b966c;
 }
 
+#levelUpMessage {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    color: #abb78a;
+}
+
 #instruction-text {
     color: #333;
     width: 300px;
@@ -37,18 +46,29 @@
 
 .scores {
     display: flex;
-    width: 450px;
+    width: 500px;
     justify-content: space-between;
+}
+
+#scoreSection, #highScoreSection {
+    display: flex;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bolder;
+    color: #abb78a;
 }
 
 #score {
     color: #abb78a;
+    justify-content: space-between;
+    margin: 10px 0;
 }
 
 #score, #highscore {
     font-size: 40px;
     font-weight: bolder;
     margin: 10px 0;
+    margin-left: 5px;
 }
 
 #highscore {
@@ -69,6 +89,89 @@
 }
 
 #logo {
+    margin: 3rem;
     width: 200px;
     height: 200px;
+}
+
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #e0e7ca;
+    padding: 20px;
+    text-align: center;
+    border: 5px solid #8b966c;
+    border-radius: 20px;
+}
+
+#pauseModal {
+    width: 300px;
+    height: 150px;
+}
+
+#gameOverModal {
+    width: 300px;
+    height: 200px;
+}
+
+.modal-content h2 {
+    font-size: 30px;
+    color: #abb78a;
+}
+
+.modal-content p {
+    font-size: 20px;
+    color: #666;
+}
+
+button {
+    background-color: #8b966c;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #abb78a;
+}
+
+.main-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mode-selection {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.mode-selection button {
+    margin-top: 3rem;
+    background-color: #8b966c;
+    border: none;
+    color: white;
+    /* padding: 10px 20px; */
+    font-size: 16px;
+    font-family: "VT323", monospace;
+    cursor: pointer;
+    /* margin: 0 5px; */
+    border-radius: 5px;
+}
+
+.mode-selection button:hover {
+    background-color: #abb78a;
 }
