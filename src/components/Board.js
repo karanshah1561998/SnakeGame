@@ -5,7 +5,7 @@ import Snake from "./Snake";
 import Instruction from "./Instruction";
 import Scores from "./Scores";
 
-const Board = ({ direction, showInstructions, isHighFlag, hasGameStarted, isPaused, isGameOver, stopGame }) => {
+const Board = ({ strictMode, wrapMode, direction, showInstructions, isHighFlag, hasGameStarted, isPaused, isGameOver, goHome, stopGame }) => {
 
     const gridSize = 20;
     let flag = false;
@@ -48,13 +48,13 @@ const Board = ({ direction, showInstructions, isHighFlag, hasGameStarted, isPaus
         }, 1000);
     };
 
-    // const wrapSnakePosition = (head) => {
-    //     if (head.x < 1) head.x = gridSize;
-    //     if (head.x > gridSize) head.x = 1;
-    //     if (head.y < 1) head.y = gridSize;
-    //     if (head.y > gridSize) head.y = 1;
-    //     return head;
-    // };
+    const wrapSnakePosition = (position) => {
+        if (position.x < 1) position.x = gridSize;
+        if (position.x > gridSize) position.x = 1;
+        if (position.y < 1) position.y = gridSize;
+        if (position.y > gridSize) position.y = 1;
+        return position;
+    };
 
     const move = () => {
         let snakeHead = { ...snake[0] };
@@ -64,6 +64,9 @@ const Board = ({ direction, showInstructions, isHighFlag, hasGameStarted, isPaus
             case 3: snakeHead.x++; break;
             case 4: snakeHead.y--; break;
             default: break;
+        }
+        if (wrapMode) {
+            snakeHead = wrapSnakePosition(snakeHead);
         }
         if (checkCollision(snakeHead)) {
             flag = true;
@@ -75,18 +78,18 @@ const Board = ({ direction, showInstructions, isHighFlag, hasGameStarted, isPaus
         if (snakeHead.x === food.x && snakeHead.y === food.y) {
             setFood(generateFood());
             increaseSpeed();
+            if ((newSnake.length-1) % 5 === 0) {
+                showLevelUpMessage();
+            }
         } else {
             newSnake.pop();
         }
         setCurrScore(newSnake.length-1);
-        if ((newSnake.length) % 5 === 0) {
-            showLevelUpMessage();
-        }
         setSnake(newSnake);
     };
 
     const checkCollision = (snakeHead) => {
-        if (snakeHead.x < 1 || snakeHead.y < 1 || snakeHead.x > gridSize || snakeHead.y > gridSize) {
+        if (strictMode && (snakeHead.x < 1 || snakeHead.y < 1 || snakeHead.x > gridSize || snakeHead.y > gridSize)) {
             return true;
         }
         for (let i = 1; i < snake.length; i++) {
@@ -131,7 +134,7 @@ const Board = ({ direction, showInstructions, isHighFlag, hasGameStarted, isPaus
     
     return (
         <>
-            <Scores score={currScore} highScore={highScore} />
+        <Scores score={currScore} highScore={highScore} />
             <div className="game-border-1">
                 <div className="game-border-2">
                     <div className="game-border-3">
@@ -139,10 +142,8 @@ const Board = ({ direction, showInstructions, isHighFlag, hasGameStarted, isPaus
                             {!hasGameStarted  && showInstructions ? (
                                 <>
                                     <Instruction />
-                                    <div className="main-button" id="main-btn">
-                                        <div className="mode-selection">
-                                            <button type="button" id="reset-high-score-btn" onClick={resetHighScore}>Reset High Score</button>
-                                        </div>
+                                    <div>
+                                        <button id="reset-high-score" type="button" onClick={resetHighScore} > Reset High Score </button>
                                     </div>
                                 </>
                             ) : (
@@ -160,7 +161,6 @@ const Board = ({ direction, showInstructions, isHighFlag, hasGameStarted, isPaus
                 </div>
             </div>
         </>
-        
     )
 };
 

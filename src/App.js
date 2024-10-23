@@ -1,5 +1,6 @@
 import './App.css';
 import { useState, useRef } from 'react';
+import Mode from './components/Mode';
 import Board from './components/Board';
 import PauseModal from './components/PauseModal';
 import GameOverModal from './components/GameOverModal';
@@ -14,6 +15,8 @@ function App() {
   const [showInstructions, setShowInstructions] = useState(true);
   const [score, setScore] = useState(0);
   const [isHighScore, setIsHighScore] = useState(false);
+  const [strictMode, setStrictMode] = useState(false);
+  const [wrapMode, setWrapMode] = useState(false);
 
   const stopGame = () => {
     setIsPaused(false);
@@ -31,6 +34,23 @@ function App() {
     setHasGameStarted(true);
     setShowInstructions(false);
     gameBoardRef.current.focus();
+  };
+
+  const restartGame = () => {
+    setIsGameOver(false);
+    startGame();
+  };
+
+  const handleStrictMode = () => {
+    setWrapMode(false);
+    setStrictMode(true);
+    startGame();
+  };
+
+  const handleWrapMode = () => {
+    setWrapMode(true);
+    setStrictMode(false);
+    startGame();
   };
 
   const goHome = () => {
@@ -54,6 +74,7 @@ function App() {
     e.preventDefault();
     if (!hasGameStarted) {
       if (e.key === "spacebar" || e.key === " ") {
+        setStrictMode(true);
         startGame();
       } 
     } else if (e.key === "spacebar" || e.key === " " || e.key === "p" || e.key === "P") {
@@ -72,8 +93,9 @@ function App() {
 
   return (
     <div id="app" className="App" onKeyDown={handleKeyPress} ref={gameBoardRef} tabIndex="0">
-      <Board direction={direction} showInstructions={showInstructions} isHighFlag={isHighFlag} hasGameStarted={hasGameStarted} isPaused={isPaused} isGameOver={isGameOver} stopGame={stopGame}></Board>
-      {isGameOver && <GameOverModal score={score} isHighScore={isHighScore} startGame={startGame} onGoHome={goHome} />}
+      {showInstructions && <Mode handleStrictMode={handleStrictMode} handleWrapMode={handleWrapMode} />}
+      <Board strictMode={strictMode} wrapMode={wrapMode} direction={direction} showInstructions={showInstructions} isHighFlag={isHighFlag} hasGameStarted={hasGameStarted} isPaused={isPaused} isGameOver={isGameOver} goHome={goHome} stopGame={stopGame}></Board>
+      {isGameOver && <GameOverModal score={score} isHighScore={isHighScore} restartGame={restartGame} onGoHome={goHome} />}
       {isPaused && <PauseModal />}
     </div>
   );

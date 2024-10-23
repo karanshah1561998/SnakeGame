@@ -1,11 +1,9 @@
-const Mode = () => {
+const Mode = ({ handleStrictMode, handleWrapMode }) => {
+
     return (
-        // Add the buttons for mode selection
-        <div className="main-button" id="main-btn">
-            <div className="mode-selection">
-                <button type="button" id="strict-mode-btn">Strict Mode</button>
-                <button type="button" id="wrap-mode-btn">Wrap Mode</button>
-            </div>
+        <div className="mode-button">
+            <button type="button" id="strict-mode-btn" onClick={handleStrictMode}>Strict Mode</button>
+            <button type="button" id="wrap-mode-btn" onClick={handleWrapMode}>Wrap Mode</button>
         </div>
     )
 };

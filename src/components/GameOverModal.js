@@ -1,4 +1,4 @@
-const GameOverModal = ({ startGame, onGoHome, score, isHighScore}) => {
+const GameOverModal = ({ restartGame, onGoHome, score, isHighScore}) => {
 
     return (
         //  Game Over Modal
@@ -10,7 +10,7 @@ const GameOverModal = ({ startGame, onGoHome, score, isHighScore}) => {
                 ) : (
                     <p id="finalScore">Your Score: {score}</p>
                 )}
-                <button type="button" onClick={startGame}> Restart </button>
+                <button type="button" onClick={restartGame}> Restart </button>
                 <button style={{marginLeft: "0.5rem"}} type="button" onClick={onGoHome}> Go Home </button>
             </div>
         </div> 
