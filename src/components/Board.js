@@ -18,20 +18,21 @@ const Board = ({ strictMode, wrapMode, direction, showInstructions, isHighFlag, 
     const [levelUpMessage, setLevelUpMessage] = useState(false);
 
     const generateFood = () => {
-        let foodPosition = {
-            x: Math.floor(Math.random() * gridSize) + 1,
-            y: Math.floor(Math.random() * gridSize) + 1
+        let newFood;
+        let isOnSnake = true;
+        const isFoodOnSnake = (foodPosition) => {
+            return snake.some(segment => segment.x === foodPosition.x && segment.y === foodPosition.y);
         };
-        while (snake.some(segment => segment.x === foodPosition.x && segment.y === foodPosition.y)) {
-            foodPosition = {
+        while (isOnSnake) {
+            newFood = {
                 x: Math.floor(Math.random() * gridSize) + 1,
                 y: Math.floor(Math.random() * gridSize) + 1
             };
+            isOnSnake = isFoodOnSnake(newFood);
         }
-        return foodPosition;
+        return newFood;
     };
     
-
     const [food, setFood] = useState(generateFood());
 
     useEffect(() => {
