@@ -4,7 +4,7 @@ This is an interactive **Snake Game** built using **React**. The player controls
 
 ## Live Demo
 
-You can view the live game on Netlify: [Snake Game](https://karanshah-snakegame-v1.netlify.app/)
+You can view the live game on Netlify: <a href="https://snakegameks.netlify.app/" target="_blank">Snake Game</a>
 
 ## Features
 
