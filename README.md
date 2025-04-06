@@ -3,7 +3,7 @@
 An interactive Snake Game built with **React**. Control the snake to eat food and grow longer while avoiding collisions. Choose between **Strict Mode** and **Wrap Mode**, track your high scores, and enjoy smooth gameplay with pause/resume functionality.
 
 ## 🚀 Live Demo
-Play it here: [Snake Game](https://snakegameks.netlify.app/)
+Access the live app here: [Snake Game](https://snakegameks.netlify.app/)
 
 ## ✨ Features
 - Classic Snake Gameplay
